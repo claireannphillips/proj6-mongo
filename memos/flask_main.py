@@ -1,7 +1,6 @@
 """
 Flask web app connects to Mongo database.
 Keep a simple list of dated memoranda.
-
 Representation conventions for dates: 
    - We use Arrow objects when we want to manipulate dates, but for all
      storage in database, in session or g objects, or anything else that
@@ -29,26 +28,17 @@ from dateutil import tz  # For interpreting local times
 
 # Mongo database
 from pymongo import MongoClient
-import credentials
-print("admin user: ", credentials.ADMIN_USER)
+
 import config
 CONFIG = config.configuration()
 
-user = ''
-userpass = ''
-dbport = ''
-db = ''
-f = open('credentials.ini', 'r')
-for line in f:
-    s = line.split(":")
-    if s[0] == "ADMIN_USER":
-        user = s[1]
 
-MONGO_CLIENT_URL = "mongodb://{}:{}@localhost{}:{}/{}".format(
-    user,
-    userpass,
-    dbport, 
-    db)
+MONGO_CLIENT_URL = "mongodb://{}:{}@{}:{}/{}".format(
+    CONFIG.DB_USER,
+    CONFIG.DB_USER_PW,
+    CONFIG.DB_HOST, 
+    CONFIG.DB_PORT, 
+    CONFIG.DB)
 
 
 print("Using URL '{}'".format(MONGO_CLIENT_URL))
@@ -156,4 +146,4 @@ if __name__ == "__main__":
     app.logger.setLevel(logging.DEBUG)
     app.run(port=CONFIG.PORT,host="0.0.0.0")
 
-    
+
