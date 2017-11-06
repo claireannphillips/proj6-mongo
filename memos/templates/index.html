@@ -24,6 +24,15 @@
 </head>
 <body>
 <div class="container">
+  <div class="col-md-12">
+    <button onclick="toCreate()">Create a Memo</button>
+  </div>
+  <script>
+    function toCreate() {
+      window.location.assign("/create");
+    }
+  </script>
+
 
 <!-- Flashed messages before content -->
 {% with messages = get_flashed_messages() %}
@@ -48,15 +57,21 @@
   <div class="col-md-10">
     {{ memo.text }}
   </div>
+  <div class="col-md-12">
+    <form action="/delete" method="post">
+      <button name="id" type="submit" value="{{ memo.unique_id }}">Delete</button>
+    </form>
+  </div>
   </div> <!-- row -->
   </div> <!-- memo -->
   {% endfor %}
 {% else %}
-  <p>No memos for you. </p>  
+  <p>No memos for you. </p>
 {% endif %}
 
- 
+
 
 </div> <!-- container -->
 </body>
 </html>
+
