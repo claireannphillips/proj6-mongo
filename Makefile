@@ -35,6 +35,10 @@ run:	env credentials
 	$(INVENV) cd memos; python3 flask_main.py
 
 
+test:	env
+	($(INVENV) cd brevets; nosetests) 
+
+
 
 ##
 ## Preserve virtual environment for git repository
